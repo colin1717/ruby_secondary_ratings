@@ -8,15 +8,10 @@ csv_array = CSV.read(csv_input)
 
 puts csv_array.inspect
 
-#create keys in a hash for each new dimensionExternalId found and push the reviewIds in the corresponding array
+#create keys in a hash for each new dimensionExternalId found and push the reviewIds into an array in that hash for the corresponding value
 dimensionExternalId = {}
 
 csv_array.each do |row|
-  # puts "row[0]: #{row[0]}"
-  # puts "row[1]: #{row[1]}"
-  # puts "row[2]: #{row[2]}"
-  #
-  # puts "dimensionExternalId: #{dimensionExternalId.inspect}"
   if dimensionExternalId.key?(row[1])
     puts "dimensionExternalId[row[1]]: #{dimensionExternalId[row[1]]}"
     if dimensionExternalId[row[1]].key?(row[2])
