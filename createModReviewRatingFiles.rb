@@ -79,4 +79,6 @@ dimensionExternalId.each do |dimensionExternalIdKey, valueObject|
 
 end
 
-puts "Created files to modify #{csv_array.length} secondary ratings"
+puts '<<=========================================================>>'
+puts "      Created files to modify #{csv_array.length} secondary ratings"
+puts '<<=========================================================>>'
