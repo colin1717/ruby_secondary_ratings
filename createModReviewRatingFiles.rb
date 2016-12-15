@@ -71,9 +71,12 @@ dimensionExternalId.each do |dimensionExternalIdKey, valueObject|
   valueObject.each do |valueObjectKey, valueArray|
     outputFile = File.open("#{dimensionExternalIdKey}-#{valueObjectKey}.txt", "w")
     valueArray.each do |valueId|
+      puts "#{dimensionExternalIdKey}-#{valueObjectKey}: #{valueId}"
       outputFile.puts(valueId)
     end
     outputFile.close
   end
 
 end
+
+puts "Created files to modify #{csv_array.length} secondary ratings"
