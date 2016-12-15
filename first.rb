@@ -3,6 +3,21 @@ require 'csv'
 filename = ARGV.first
 csv_input = open(filename)
 
+#convert 10star ratings to 5star scale
+def convertRatings(rating)
+  if rating == 10
+    return 5
+  elsif rating >= 7
+    return 4
+  elsif rating >= 5
+    return 3
+  elsif rating >= 2
+    return 2
+  elsif rating == 1
+    return 1
+  end
+end
+
 #build 2d array of csv data
 csv_array = CSV.read(csv_input)
 
@@ -14,19 +29,19 @@ dimensionExternalId = {}
 csv_array.each do |row|
   if dimensionExternalId.key?(row[1])
     puts "dimensionExternalId[row[1]]: #{dimensionExternalId[row[1]]}"
-    if dimensionExternalId[row[1]].key?(row[2])
+    if dimensionExternalId[row[1]].key?(convertRatings(row[2].to_i))
       puts 'working up top'
-      dimensionExternalId[(row[1])][(row[2])].push(row[0])
+      dimensionExternalId[(row[1])][(convertRatings(row[2].to_i))].push(row[0])
     else
-      puts "creating array for #{dimensionExternalId[row[1]][row[2]]}"
-      dimensionExternalId[row[1]][row[2]] = []
-      dimensionExternalId[row[1]][row[2]].push(row[0])
+      puts "creating array for #{dimensionExternalId[row[1]][convertRatings(row[2].to_i)]}"
+      dimensionExternalId[row[1]][convertRatings(row[2].to_i)] = []
+      dimensionExternalId[row[1]][convertRatings(row[2].to_i)].push(row[0])
     end
   else
     puts "creating #{dimensionExternalId[row[1]]} hash, array, and pushing #{row[0]}"
     dimensionExternalId[row[1]] = {}
-    dimensionExternalId[row[1]][row[2]] = []
-    dimensionExternalId[row[1]][row[2]].push(row[0])
+    dimensionExternalId[row[1]][convertRatings(row[2].to_i)] = []
+    dimensionExternalId[row[1]][convertRatings(row[2].to_i)].push(row[0])
   end
 end
 
